@@ -7,7 +7,7 @@ export const zidFilm = createAsyncThunk(
   async (nouveauFilm, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/films/",
+        "https://sanovod-api.onrender.com/api/films/",
         nouveauFilm
       );
       return data;
@@ -22,7 +22,9 @@ export const getAllFilms = createAsyncThunk(
   "films/getAllFilms",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:5000/api/films/");
+      const response = await axios.get(
+        "https://sanovod-api.onrender.com/api/films/"
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -35,7 +37,7 @@ export const supprimerFilm = createAsyncThunk(
   "films/supprimerFilm",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:5000/api/films/${id}`);
+      await axios.delete(`https://sanovod-api.onrender.com/api/films/${id}`);
       return id; // Return the ID of the deleted film for state update
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -49,7 +51,7 @@ export const mettreAFilm = createAsyncThunk(
   async ({ id, ...mettreAJourFilm }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/api/films/${id}`,
+        `https://sanovod-api.onrender.com/api/films/${id}`,
         mettreAJourFilm
       );
       return data;

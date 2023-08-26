@@ -5,10 +5,13 @@ export const creerRole = createAsyncThunk(
   "roles/createRole",
   async ({ leRole, permissions }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post("http://localhost:5000/api/roles/", {
-        leRole,
-        permissions,
-      });
+      const { data } = await axios.post(
+        "https://sanovod-api.onrender.com/api/roles/",
+        {
+          leRole,
+          permissions,
+        }
+      );
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -20,7 +23,9 @@ export const getAllRoles = createAsyncThunk(
   "roles/getAllRoles",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:5000/api/roles/");
+      const response = await axios.get(
+        "https://sanovod-api.onrender.com/api/roles/"
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -33,7 +38,7 @@ export const updateRole = createAsyncThunk(
   async ({ id, leRole, permissions }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/api/roles/${id}`,
+        `https://sanovod-api.onrender.com/api/roles/${id}`,
         {
           leRole,
           permissions,
@@ -50,7 +55,7 @@ export const deleteRole = createAsyncThunk(
   "roles/deleteRole",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:5000/api/roles/${id}`);
+      await axios.delete(`https://sanovod-api.onrender.com/api/roles/${id}`);
       return id;
     } catch (error) {
       return rejectWithValue(error.response.data);

@@ -6,7 +6,7 @@ export const zidCategories = createAsyncThunk(
   async ({ categorie }, { rejectWithValue, getState, dispatch }) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/categories",
+        "https://sanovod-api.onrender.com/api/categories",
         {
           categorie,
         }
@@ -24,7 +24,7 @@ export const getAllCategories = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/categories/tous"
+        "https://sanovod-api.onrender.com/api/categories/tous"
       );
       return response.data;
     } catch (error) {
@@ -38,7 +38,9 @@ export const supCategorie = createAsyncThunk(
   "categories/supCategorie",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:5000/api/categories/${id}`);
+      await axios.delete(
+        `https://sanovod-api.onrender.com/api/categories/${id}`
+      );
       return id; // Renvoyer l'ID de la catégorie supprimée pour la mise à jour de l'état
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -52,7 +54,7 @@ export const mettreAJourCategorie = createAsyncThunk(
   async ({ id, categorie }, { rejectWithValue, getState, dispatch }) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/api/categories/${id}`,
+        `https://sanovod-api.onrender.com/api/categories/${id}`,
         {
           categorie,
         }

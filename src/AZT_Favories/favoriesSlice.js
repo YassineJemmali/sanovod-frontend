@@ -9,7 +9,7 @@ export const ajouterUtilisateurAuxFavoris = createAsyncThunk(
   async ({ filmId, userId }) => {
     try {
       const response = await axios.patch(
-        `http://localhost:5000/api/favories/${filmId}/ajouter-a-favoris`,
+        `https://sanovod-api.onrender.com/api/favories/${filmId}/ajouter-a-favoris`,
         { userId }
       );
       return response.data;
@@ -25,7 +25,7 @@ export const supprimerUtilisateurDesFavoris = createAsyncThunk(
   async ({ filmId, userId }) => {
     try {
       const response = await axios.patch(
-        `http://localhost:5000/api/favories/${filmId}/suppimer-de-favoris`,
+        `https://sanovod-api.onrender.com/api/favories/${filmId}/suppimer-de-favoris`,
         { userId }
       );
       return response.data;

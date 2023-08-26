@@ -6,7 +6,7 @@ export const tousPermissionsAction = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/permissions/"
+        "https://sanovod-api.onrender.com/api/permissions/"
       );
       return response.data;
     } catch (error) {

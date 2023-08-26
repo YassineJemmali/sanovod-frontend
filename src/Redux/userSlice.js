@@ -9,7 +9,7 @@ export const zidUtilisateur = createAsyncThunk(
   async (formValue, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/users/",
+        "https://sanovod-api.onrender.com/api/users/",
         formValue
       );
       return data;
@@ -28,7 +28,7 @@ export const login = createAsyncThunk(
     axios.defaults.withCredentials = true;
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/users/auth",
+        "https://sanovod-api.onrender.com/api/users/auth",
         formValue
       );
 
@@ -57,7 +57,7 @@ export const register = createAsyncThunk(
     console.log(formValue);
     try {
       const { data } = await axios
-        .post("http://localhost:5000/api/users", formValue)
+        .post("https://sanovod-api.onrender.com/api/users", formValue)
         .then(() => {
           navigate("/login");
         })
@@ -78,7 +78,7 @@ export const AdminUpdateUtilisateur = createAsyncThunk(
     axios.defaults.withCredentials = true;
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/api/users/usersadmin/${id}`,
+        `https://sanovod-api.onrender.com/api/users/usersadmin/${id}`,
         formValue
       );
       return data;
@@ -93,7 +93,7 @@ export const AdminUpdateUtilisateur = createAsyncThunk(
 //   async ({ id, ...formValue }, { rejectWithValue }) => {
 //     try {
 //       const { data } = await axios.put(
-//         `http://localhost:5000/api/users/profile`,
+//         `https://sanovod-api.onrender.com/api/users/profile`,
 //         formValue
 //       );
 //       return data;
@@ -113,7 +113,7 @@ export const updateProfile = createAsyncThunk(
     axios.defaults.withCredentials = true;
     try {
       const { data } = await axios
-        .put("http://localhost:5000/api/users/profile", formValue)
+        .put("https://sanovod-api.onrender.com/api/users/profile", formValue)
         .then(() => {
           dispatch(Logout());
         });
@@ -130,7 +130,9 @@ export const getAllUtilisateurs = createAsyncThunk(
   "user/getAllUtilisateurs",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:5000/api/users/");
+      const response = await axios.get(
+        "https://sanovod-api.onrender.com/api/users/"
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -143,7 +145,7 @@ export const supprimerUtilisateur = createAsyncThunk(
   "user/supprimerUtilisateur",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/${id}`);
+      await axios.delete(`https://sanovod-api.onrender.com/api/users/${id}`);
       return id; // Return the ID of the deleted user  for state update
     } catch (error) {
       return rejectWithValue(error.response.data);

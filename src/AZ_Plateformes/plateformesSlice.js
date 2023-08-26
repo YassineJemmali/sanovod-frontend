@@ -7,7 +7,7 @@ export const zidPlateforme = createAsyncThunk(
   async ({ unePlateforme, logoPlateforme }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/plateformes/",
+        "https://sanovod-api.onrender.com/api/plateformes/",
         {
           unePlateforme: unePlateforme,
           logoPlateforme: logoPlateforme,
@@ -26,7 +26,7 @@ export const getAllPlateformes = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/plateformes/"
+        "https://sanovod-api.onrender.com/api/plateformes/"
       );
       return response.data;
     } catch (error) {
@@ -40,7 +40,9 @@ export const supprimerPlateforme = createAsyncThunk(
   "plateformes/supprimerPlateforme",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:5000/api/plateformes/${id}`);
+      await axios.delete(
+        `https://sanovod-api.onrender.com/api/plateformes/${id}`
+      );
       return id; // Return the ID of the deleted plateforme for state update
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -54,7 +56,7 @@ export const mettreAPlateforme = createAsyncThunk(
   async ({ id, unePlateforme, logoPlateforme }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/api/plateformes/${id}`,
+        `https://sanovod-api.onrender.com/api/plateformes/${id}`,
         {
           unePlateforme: unePlateforme,
           logoPlateforme: logoPlateforme,

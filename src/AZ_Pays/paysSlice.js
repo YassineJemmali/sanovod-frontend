@@ -8,11 +8,14 @@ export const zidPays = createAsyncThunk(
     { rejectWithValue, getState, dispatch }
   ) => {
     try {
-      const { data } = await axios.post("http://localhost:5000/api/pays/zid", {
-        lePays,
-        leDrapeau,
-        publiePar,
-      });
+      const { data } = await axios.post(
+        "https://sanovod-api.onrender.com/api/pays/zid",
+        {
+          lePays,
+          leDrapeau,
+          publiePar,
+        }
+      );
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -25,7 +28,9 @@ export const obtenirTousLesPays = createAsyncThunk(
   "pays/obtenirTousLesPays",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:5000/api/pays/lkol");
+      const response = await axios.get(
+        "https://sanovod-api.onrender.com/api/pays/lkol"
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -37,7 +42,7 @@ export const supprimerPays = createAsyncThunk(
   "pays/supprimerPays",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:5000/api/pays/sup/${id}`);
+      await axios.delete(`https://sanovod-api.onrender.com/api/pays/sup/${id}`);
       return id;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -53,7 +58,7 @@ export const majPays = createAsyncThunk(
   ) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/api/pays/maj/${id}`,
+        `https://sanovod-api.onrender.com/api/pays/maj/${id}`,
         {
           lePays,
           leDrapeau,
