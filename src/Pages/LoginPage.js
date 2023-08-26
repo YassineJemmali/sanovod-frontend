@@ -114,7 +114,10 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="http://localhost:3000/register" variant="body2">
+              <Link
+                href="https://sanovod.onrender.com/register"
+                variant="body2"
+              >
                 {"Pas de compte ? Inscrivez-vous"}
               </Link>
             </Grid>
