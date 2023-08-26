@@ -9,6 +9,7 @@ import {
   Chip,
   Avatar,
   CardMedia,
+  Checkbox,
   Grid,
 } from "@mui/material";
 import { generateYoutubeIframe } from "./LienVideo";
@@ -20,6 +21,7 @@ import {
   ajouterUtilisateurAuxFavoris,
   supprimerUtilisateurDesFavoris,
 } from "../AZT_Favories/favoriesSlice";
+import PopupFilmFavori from "./PopupFilmFavori";
 
 const Film = () => {
   const dispatch = useDispatch();
@@ -50,34 +52,47 @@ const Film = () => {
   //   }
   // };
 
+  const [isLoginPromptOpen, setIsLoginPromptOpen] = useState(false);
+
   const handleFavoriteToggle = () => {
-    if (estFavori) {
-      dispatch(
-        supprimerUtilisateurDesFavoris({
-          filmId: leFilm,
-          userId: leUtilisateur,
-        })
-      )
-        .unwrap()
-        .then(() => {
-          setEstFavori(false);
-        })
-        .catch((error) => {
-          console.log("Erreur lors de la suppression du favori:", error);
-        });
+    if (userIdConnected) {
+      if (estFavori) {
+        dispatch(
+          supprimerUtilisateurDesFavoris({
+            filmId: leFilm,
+            userId: leUtilisateur,
+          })
+        )
+          .unwrap()
+          .then(() => {
+            setEstFavori(false);
+          })
+          .catch((error) => {
+            console.log("Erreur lors de la suppression du favori:", error);
+          });
+      } else {
+        dispatch(
+          ajouterUtilisateurAuxFavoris({
+            filmId: leFilm,
+            userId: leUtilisateur,
+          })
+        )
+          .unwrap()
+          .then(() => {
+            setEstFavori(true);
+          })
+          .catch((error) => {
+            console.log("Erreur lors de l'ajout du favori:", error);
+          });
+      }
     } else {
-      dispatch(
-        ajouterUtilisateurAuxFavoris({ filmId: leFilm, userId: leUtilisateur })
-      )
-        .unwrap()
-        .then(() => {
-          setEstFavori(true);
-        })
-        .catch((error) => {
-          console.log("Erreur lors de l'ajout du favori:", error);
-        });
+      setIsLoginPromptOpen(true);
     }
   };
+
+  // const handleFavoriteToggle = () => {
+
+  // };
 
   // const handleFavoriteToggle = () => {
   //   // Mettre à jour l'état local en fonction de la valeur précédente
@@ -110,16 +125,33 @@ const Film = () => {
             }}
           >
             {film.titre} {" (Le Film) "}
+            <Checkbox
+              icon={<FavoriteBorder />}
+              checkedIcon={<Favorite />}
+              checked={estFavori}
+              onClick={handleFavoriteToggle}
+              sx={{ cursor: "pointer" }}
+            />
+            {/*             
             {estFavori ? (
               <Favorite onClick={handleFavoriteToggle} />
             ) : (
               <FavoriteBorder onClick={handleFavoriteToggle} />
-            )}
+            )} */}
             {/* <Checkbox
               {...label}
               icon={<FavoriteBorder />}
               checkedIcon={<Favorite />}
             /> */}
+            {/* {userIdConnected ? (
+              estFavori ? (
+                <Favorite onClick={handleFavoriteToggle} />
+              ) : (
+                <FavoriteBorder onClick={handleFavoriteToggle} />
+              )
+            ) : (
+              <FavoriteBorder onClick={() => setIsLoginPromptOpen(true)} />
+            )} */}
           </Typography>
           {/* la partie des données globales */}
           {/* la partie de description */}
@@ -259,6 +291,10 @@ const Film = () => {
           <Grid>{generateYoutubeIframe(film.bandeAnnonce)}</Grid>
         </CardContent>
       </Card>
+      <PopupFilmFavori
+        open={isLoginPromptOpen}
+        onClose={() => setIsLoginPromptOpen(false)}
+      />
     </Container>
   );
 };
